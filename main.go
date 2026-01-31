@@ -19,13 +19,13 @@ func main() {
 	cmd.Run()
 
 	fmt.Println("\n=== Git Add ===")
-	// Git add - perguntar arquivos
-	fmt.Print("Digite os arquivos para adicionar (use '.' para adicionar todos): ")
+	// Git add - ask for files
+	fmt.Print("Enter files to add (use '.' to add all): ")
 	files, _ := reader.ReadString('\n')
 	files = strings.TrimSpace(files)
 
 	if files == "" {
-		fmt.Println("Nenhum arquivo especificado. Abortando.")
+		fmt.Println("No files specified. Aborting.")
 		return
 	}
 
@@ -33,34 +33,34 @@ func main() {
 	cmdAdd.Stdout = os.Stdout
 	cmdAdd.Stderr = os.Stderr
 	if err := cmdAdd.Run(); err != nil {
-		fmt.Println("Erro ao executar git add:", err)
+		fmt.Println("Error executing git add:", err)
 		return
 	}
-	fmt.Println("Arquivos adicionados com sucesso!")
+	fmt.Println("Files added successfully!")
 
 	fmt.Println("\n=== Git Commit ===")
-	// Git commit - perguntar mensagem
-	fmt.Print("Digite a mensagem do commit: ")
-	mensagem, _ := reader.ReadString('\n')
-	mensagem = strings.TrimSpace(mensagem)
+	// Git commit - ask for message
+	fmt.Print("Enter commit message: ")
+	message, _ := reader.ReadString('\n')
+	message = strings.TrimSpace(message)
 
-	if mensagem == "" {
-		fmt.Println("Mensagem de commit vazia. Abortando.")
+	if message == "" {
+		fmt.Println("Empty commit message. Aborting.")
 		return
 	}
 
-	cmdCommit := exec.Command("git", "commit", "-m", mensagem)
+	cmdCommit := exec.Command("git", "commit", "-m", message)
 	cmdCommit.Stdout = os.Stdout
 	cmdCommit.Stderr = os.Stderr
 	if err := cmdCommit.Run(); err != nil {
-		fmt.Println("Erro ao executar git commit:", err)
+		fmt.Println("Error executing git commit:", err)
 		return
 	}
-	fmt.Println("Commit realizado com sucesso!")
+	fmt.Println("Commit completed successfully!")
 
 	fmt.Println("\n=== Git Push ===")
-	// Git push - branch padrão main
-	fmt.Print("Para branch 'main' pressione 'Enter'. Para outra branch, digite o nome: ")
+	// Git push - default branch main
+	fmt.Print("Press 'Enter' for 'main' branch. For another branch, enter the name: ")
 	branch, _ := reader.ReadString('\n')
 	branch = strings.TrimSpace(branch)
 
@@ -68,13 +68,13 @@ func main() {
 		branch = "main"
 	}
 
-	fmt.Printf("Enviando commit para a branch '%s'...\n", branch)
+	fmt.Printf("Pushing commit to '%s' branch...\n", branch)
 	cmdPush := exec.Command("git", "push", "origin", branch)
 	cmdPush.Stdout = os.Stdout
 	cmdPush.Stderr = os.Stderr
 	if err := cmdPush.Run(); err != nil {
-		fmt.Println("Erro ao executar git push:", err)
+		fmt.Println("Error executing git push:", err)
 		return
 	}
-	fmt.Println("Push realizado com sucesso!")
+	fmt.Println("Push completed successfully!")
 }
