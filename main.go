@@ -22,8 +22,8 @@ func main() {
 		return
 	}
 
-	fmt.Println("\n=== Git Add ===")
 	// Git add - ask for files
+	fmt.Println("\n=== Git Add ===")
 	fmt.Print("Enter files to add (use '.' to add all): ")
 	files, _ := reader.ReadString('\n')
 	files = strings.TrimSpace(files)
@@ -41,8 +41,8 @@ func main() {
 	}
 	fmt.Println("Files added successfully!")
 
-	fmt.Println("\n=== Git Commit ===")
 	// Git commit - ask for message
+	fmt.Println("\n=== Git Commit ===")
 	fmt.Print("Enter commit message: ")
 	message, _ := reader.ReadString('\n')
 	message = strings.TrimSpace(message)
@@ -60,15 +60,14 @@ func main() {
 	}
 	fmt.Println("Commit completed successfully!")
 
-	fmt.Println("\n=== Git Push ===")
 	// Git push - default branch main
+	fmt.Println("\n=== Git Push ===")
 	fmt.Print("Press 'Enter' for 'main' branch. For another branch, enter the name: ")
 	branch, _ := reader.ReadString('\n')
 	branch = strings.TrimSpace(branch)
 	if branch == "" {
 		branch = "main"
 	}
-
 	fmt.Printf("Pushing commit to '%s' branch...\n", branch)
 	cmdPush := exec.Command("git", "push", "origin", branch)
 	cmdPush.Stdout = os.Stdout
