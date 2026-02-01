@@ -16,14 +16,17 @@ func main() {
 	cmd := exec.Command("git", "status")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Run()
+	err := cmd.Run()
+	if err != nil {
+		fmt.Println("Error getting status: ", err)
+		return
+	}
 
 	fmt.Println("\n=== Git Add ===")
 	// Git add - ask for files
 	fmt.Print("Enter files to add (use '.' to add all): ")
 	files, _ := reader.ReadString('\n')
 	files = strings.TrimSpace(files)
-
 	if files == "" {
 		fmt.Println("No files specified. Aborting.")
 		return
@@ -43,7 +46,6 @@ func main() {
 	fmt.Print("Enter commit message: ")
 	message, _ := reader.ReadString('\n')
 	message = strings.TrimSpace(message)
-
 	if message == "" {
 		fmt.Println("Empty commit message. Aborting.")
 		return
@@ -63,7 +65,6 @@ func main() {
 	fmt.Print("Press 'Enter' for 'main' branch. For another branch, enter the name: ")
 	branch, _ := reader.ReadString('\n')
 	branch = strings.TrimSpace(branch)
-
 	if branch == "" {
 		branch = "main"
 	}
